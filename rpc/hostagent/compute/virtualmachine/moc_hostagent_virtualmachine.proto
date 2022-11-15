@@ -1,0 +1,53 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the Apache v2.0 license.
+
+syntax = "proto3";
+option go_package = "github.com/microsoft/moc/rpc/hostagent/compute";
+
+package moc.hostagent.compute;
+import "moc_common_common.proto";
+import "moc_common_computecommon.proto";
+
+message VirtualMachine {
+	string name = 1;
+	string id = 2;
+	Entity entity = 3;
+	Tags tags = 4;
+}
+
+message RegisterVirtualMachineRequest {
+	VirtualMachine VirtualMachine = 1;
+}
+
+message RegisterVirtualMachineResponse {
+	VirtualMachine VirtualMachine = 1;
+	VirtualMachineRunCommandInstanceView InstanceView = 2;
+}
+
+message DeregisterVirtualMachineRequest {
+	VirtualMachine VirtualMachine = 1;
+}
+
+message DeregisterVirtualMachineResponse {
+	VirtualMachine VirtualMachine = 1;
+	VirtualMachineRunCommandInstanceView InstanceView = 2;
+}
+
+message VirtualMachineRunCommandRequest {
+	VirtualMachine VirtualMachine = 1;
+	VirtualMachineRunCommandScriptSource Source = 2;
+	repeated VirtualMachineRunCommandInputParameter RunCommandInputParameters = 3;
+	string RunAsUser = 4 [(sensitive) = true];
+	string RunAsPassword = 5 [(sensitive) = true];
+}
+
+message VirtualMachineRunCommandResponse {
+	VirtualMachine VirtualMachine = 1;
+	VirtualMachineRunCommandInstanceView InstanceView = 2;
+}
+
+service VirtualMachineAgent {
+	rpc RegisterVirtualMachine(RegisterVirtualMachineRequest) returns (RegisterVirtualMachineResponse) {}
+	rpc DeregisterVirtualMachine(DeregisterVirtualMachineRequest) returns (DeregisterVirtualMachineResponse) {}
+	rpc RunCommand(VirtualMachineRunCommandRequest) returns (VirtualMachineRunCommandResponse) {}
+}

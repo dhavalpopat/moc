@@ -57,6 +57,10 @@ protoc -I $Agent/$Module/keyvault -I ./common -I $Agent/$Module/keyvault/secret 
 protoc -I $Agent/$Module/authentication -I ./common -I $Agent/$Module/identity $Agent/$Module/authentication/moc_nodeagent_authentication.proto --go_out=plugins=grpc:../bld/gen/
 protoc -I $Agent/$Module/certificate -I ./common -I $Agent/$Module/certificate $Agent/$Module/certificate/moc_nodeagent_certificate.proto --go_out=plugins=grpc:../bld/gen/
 
+Module="node"
+echo "Generating $Agent/$Module protoc"
+protoc -I $Agent/$Module/host -I ./common $Agent/$Module/host/moc_nodeagent_host.proto --go_out=plugins=grpc:../bld/gen/
+
 #### 
 
 Agent="lbagent"
@@ -84,6 +88,22 @@ protoc -I $Agent/$Module -I ./common $Agent/$Module/moc_ipaddress_${Module}.prot
 ChildModule="ipaddress"
 echo "Generating $Module/$ChildModule protoc"
 protoc -I $Agent/$Module -I ./common $Agent/$Module/$ChildModule/moc_ipaddress_${ChildModule}.proto --go_out=plugins=grpc:../bld/gen/
+
+#### 
+
+Agent="hostagent"
+echo "Generating Protoc for $Agent"
+
+Module="admin"
+echo "Generating $Module protoc"
+ChildModule="exec"
+echo "Generating $Module/$ChildModule protoc"
+protoc -I $Agent/$Module -I ./common $Agent/$Module/$ChildModule/moc_hostagent_${ChildModule}.proto --go_out=plugins=grpc:../bld/gen/
+
+# Generate compute agent protoc
+Module="compute"
+echo "Generating $Agent/$Module protoc"
+protoc -I $Agent/$Module/virtualmachine -I ./common $Agent/$Module/virtualmachine/moc_hostagent_virtualmachine.proto --go_out=plugins=grpc:../bld/gen/
 
 #### 
 
