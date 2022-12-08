@@ -132,6 +132,28 @@ message VirtualMachineOperationResponse {
 	string  Error = 3;
 }
 
+message RegisterVirtualMachineRequest {
+	VirtualMachine VirtualMachine = 1;
+	string name = 2;
+	string id = 3;
+}
+
+message RegisterVirtualMachineResponse {
+	google.protobuf.BoolValue Result = 1;
+	string Error = 2;
+}
+
+message DeregisterVirtualMachineRequest {
+	VirtualMachine VirtualMachine = 1;
+	string name = 2;
+	string id = 3;
+}
+
+message DeregisterVirtualMachineResponse {
+	google.protobuf.BoolValue Result = 1;
+	string Error = 2;
+}
+
 message VirtualMachineRunCommandRequest {
 	VirtualMachine VirtualMachine = 1;
 	VirtualMachineRunCommandScriptSource Source = 2;
@@ -149,6 +171,8 @@ service VirtualMachineAgent {
 	rpc Invoke(VirtualMachineRequest) returns (VirtualMachineResponse) {}
 	rpc Operate(VirtualMachineOperationRequest) returns (VirtualMachineOperationResponse) {}
 	rpc CheckNotification(google.protobuf.Empty) returns (NotificationResponse) {}
+	rpc RegisterVirtualMachine(RegisterVirtualMachineRequest) returns (RegisterVirtualMachineResponse) {}
+	rpc DeregisterVirtualMachine(DeregisterVirtualMachineRequest) returns (DeregisterVirtualMachineResponse) {}
 	rpc RunCommand(VirtualMachineRunCommandRequest) returns (VirtualMachineRunCommandResponse) {}
 }
 
