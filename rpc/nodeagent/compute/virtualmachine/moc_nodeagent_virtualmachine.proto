@@ -134,24 +134,22 @@ message VirtualMachineOperationResponse {
 
 message RegisterVirtualMachineRequest {
 	VirtualMachine VirtualMachine = 1;
-	string name = 2;
-	string id = 3;
+	string RunAsUser = 2 [(sensitive) = true];
+	string RunAsPassword = 3 [(sensitive) = true];
 }
 
 message RegisterVirtualMachineResponse {
-	google.protobuf.BoolValue Result = 1;
-	string Error = 2;
+	RegisterVirtualMachineInstanceView InstanceView = 1;
 }
 
 message DeregisterVirtualMachineRequest {
 	VirtualMachine VirtualMachine = 1;
-	string name = 2;
-	string id = 3;
+	string RunAsUser = 2 [(sensitive) = true];
+	string RunAsPassword = 3 [(sensitive) = true];
 }
 
 message DeregisterVirtualMachineResponse {
-	google.protobuf.BoolValue Result = 1;
-	string Error = 2;
+	DeregisterVirtualMachineInstanceView InstanceView = 1;
 }
 
 message VirtualMachineRunCommandRequest {

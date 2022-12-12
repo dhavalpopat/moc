@@ -107,6 +107,16 @@ enum VirtualMachineOperation {
 	RESET = 2;
 }
 
+message RegisterVirtualMachineInstanceView {
+	string Output = 1;
+	string Error = 2;
+}
+
+message DeregisterVirtualMachineInstanceView {
+	string Output = 1;
+	string Error = 2;
+}
+
 enum VirtualMachineRunCommandExecutionState {
 	ExecutionState_UNKNOWN = 0;
 	ExecutionState_FAILED = 1;
