@@ -37,7 +37,7 @@ message Host {
 	Tags tags = 8;
 } 
 
-service HostAgent {
+service WssdHostAgent {
 	rpc Invoke(HostRequest) returns (HostResponse) {}
 }
 
